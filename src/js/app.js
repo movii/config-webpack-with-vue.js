@@ -1,6 +1,8 @@
-import Vue from 'vue';
+import Vue from 'vue'
+import App from './App.vue'
 
-new Vue({
-  el: '#app',
-  template: `<h1>Hello World with webpack-dev-server</h1>`
+const app = new Vue({
+  render: h => h(App)
 })
+
+app.$mount('#app')

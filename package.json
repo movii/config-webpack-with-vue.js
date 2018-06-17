@@ -11,7 +11,10 @@
   "author": "Lien Z <mo.strangeline@gmail.com> (https://moxo.io)",
   "license": "MIT",
   "dependencies": {
-    "vue": "^2.5.16"
+    "css-loader": "^0.28.11",
+    "vue": "^2.5.16",
+    "vue-loader": "^15.2.4",
+    "vue-template-compiler": "^2.0.0"
   },
   "private": true,
   "devDependencies": {
