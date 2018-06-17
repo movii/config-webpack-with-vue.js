@@ -1,5 +1,6 @@
 let path = require('path');
 let VueLoaderPlugin = require('vue-loader/lib/plugin');
+let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -26,3 +27,13 @@ module.exports = {
     new VueLoaderPlugin()
   ]
 };
+
+if ( process.env.NODE_ENV === 'production' ) {
+   module.exports.plugins.push(
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        sourceMap: true
+      }
+    })
+   );
+ }
