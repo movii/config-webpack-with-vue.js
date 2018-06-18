@@ -1,13 +1,15 @@
 let path = require('path');
 let VueLoaderPlugin = require('vue-loader/lib/plugin');
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+let UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+let webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: 'http://localhost:1333/dist/'
   },
   module: {
     rules: [
@@ -27,9 +29,13 @@ module.exports = {
     contentBase: './',
     compress: true,
     port: 1333,
+    hot: true,
+    hotOnly: true
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
 
