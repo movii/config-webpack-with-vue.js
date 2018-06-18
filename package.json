@@ -4,7 +4,7 @@
   "description": "config webpack with vue",
   "main": "index.js",
   "scripts": {
-    "dev": "npx webpack --hide-modules --watch",
+    "dev": "export NODE_ENV=development && npx webpack --hide-modules",
     "serve": "export NODE_ENV=development && npx webpack-dev-server",
     "production": "export NODE_ENV=production && npx webpack"
   },
