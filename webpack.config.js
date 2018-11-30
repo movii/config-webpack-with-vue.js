@@ -1,6 +1,6 @@
-let path = require('path');
-let VueLoaderPlugin = require('vue-loader/lib/plugin');
-let UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+let path = require('path')
+let VueLoaderPlugin = require('vue-loader/lib/plugin')
+let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let webpack = require('webpack')
 
 module.exports = {
@@ -23,13 +23,17 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader'
       }
     ]
   },
   devServer: {
     publicPath: '/dist/',
     contentBase: './',
-    compress: true,
+    compress: false,
     port: 1333,
     hot: true,
     hotOnly: true
