@@ -13,6 +13,13 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: 'http://localhost:1333/dist/'
   },
+  resolve:{
+    alias: {
+      JS_ROOT: path.resolve(__dirname, 'src/'),
+      CSS_ROOT: path.resolve(__dirname, 'css/'),
+      SCSS_ROOT: path.resolve(__dirname, 'scss/')
+    }
+  },
   module: {
     rules: [
       {
