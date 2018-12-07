@@ -1,4 +1,6 @@
 @import '~somepackage/options';
+@import './options';
+@import './ext';
 
 body {
   background: #000000;
