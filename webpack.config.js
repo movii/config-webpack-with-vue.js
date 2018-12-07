@@ -4,16 +4,14 @@ let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let webpack = require('webpack')
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'production'
-    ? 'production'
-    : 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: './src/js/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: 'http://localhost:1333/dist/'
   },
-  resolve:{
+  resolve: {
     alias: {
       JS_ROOT: path.resolve(__dirname, 'src/'),
       CSS_ROOT: path.resolve(__dirname, 'css/'),
@@ -37,7 +35,16 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['node_modules']
+            }
+          }
+        ]
       }
     ]
   },
@@ -54,14 +61,14 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
   ]
-};
+}
 
-if ( process.env.NODE_ENV === 'production' ) {
-   module.exports.plugins.push(
+if (process.env.NODE_ENV === 'production') {
+  module.exports.plugins.push(
     new UglifyJsPlugin({
       uglifyOptions: {
         sourceMap: true
       }
     })
-   );
- }
+  )
+}

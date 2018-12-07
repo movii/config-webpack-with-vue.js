@@ -1,1 +1,6 @@
-body {background: #000000; color: #ff0000;}
+@import '~somepackage/options';
+
+body {
+  background: #000000;
+  color: $red;
+}
