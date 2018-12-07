@@ -5,10 +5,16 @@ let webpack = require('webpack')
 
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  entry: './src/js/app.js',
+  entry: {
+    app: [
+      './src/js/app.js',
+      './css/main.css',
+      './scss/main.scss'
+    ]
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].[ext]',
     publicPath: 'http://localhost:1333/dist/'
   },
   resolve: {
