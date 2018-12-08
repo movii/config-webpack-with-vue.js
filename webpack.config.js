@@ -2,19 +2,18 @@ let path = require('path')
 let VueLoaderPlugin = require('vue-loader/lib/plugin')
 let UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 let webpack = require('webpack')
+let MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const isProd = process.env.NODE_ENV === 'production' ? true : false
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  mode: isProd ? 'production' : 'development',
   entry: {
-    app: [
-      './src/js/app.js',
-      './css/main.css',
-      './scss/main.scss'
-    ]
+    app: ['./src/js/app.js', './css/main.css', './scss/main.scss']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[ext]',
+    filename: '[name].js',
     publicPath: 'http://localhost:1333/dist/'
   },
   resolve: {
@@ -37,15 +36,25 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: isProd
+          ? [MiniCssExtractPlugin.loader, 'css-loader']
+          : [
+              {
+                loader: 'style-loader',
+                options: { sourceMap: true }
+              },
+              'css-loader'
+            ]
       },
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: 'style-loader',
-            options:   { sourceMap: true }
-          },
+          isProd
+            ? MiniCssExtractPlugin.loader
+            : {
+                loader: 'style-loader',
+                options: { sourceMap: true }
+              },
           {
             loader: 'css-loader',
             options: { sourceMap: true }
@@ -82,6 +91,13 @@ if (process.env.NODE_ENV === 'production') {
       uglifyOptions: {
         sourceMap: true
       }
+    })
+  )
+
+  module.exports.plugins.push(
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   )
 }
